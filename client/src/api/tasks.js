@@ -1,6 +1,6 @@
 // Use relative URLs when the app is built and served by Express
 // In development, the Vite dev server proxies API requests to the Express backend
-const API_BASE ='/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://task-management-app-server-wtya.onrender.com';;
 
 // Load all tasks with optional filter
 export async function loadTasks({ request }) {
@@ -26,10 +26,12 @@ export async function loadTasks({ request }) {
     console.log('Tasks fetched:', data);
     return data;
   } catch (error) {
-    console.error('Error loading tasks:', error);
-    // Return empty array instead of throwing to prevent route error
-    return [];
+    const text = await response.text();
+    console.error("Non-JSON API response :" ,text);
+    throw new Error('Failed to parse API response as JSON. See logs for details');
+    
   }
+  return data;
 }
 
 // Load a single task by ID
