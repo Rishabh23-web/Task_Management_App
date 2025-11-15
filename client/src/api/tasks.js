@@ -1,6 +1,6 @@
 // Use relative URLs when the app is built and served by Express
 // In development, the Vite dev server proxies API requests to the Express backend
-const API_BASE = '/api';
+const API_BASE = "https://task-management-app-server-wtya.onrender.com";
 
 // Load all tasks with optional filter
 export async function loadTasks({ request }) {
